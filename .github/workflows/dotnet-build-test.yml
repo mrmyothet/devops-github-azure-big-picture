@@ -21,14 +21,9 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: Restore dependencies
+      - name: Build and publish with dotnet
         working-directory: TailwindTraders.Website/Source/Tailwind.Traders.Web
-        run: dotnet restore
-
-      - name: Build
-        working-directory: TailwindTraders.Website/Source/Tailwind.Traders.Web
-        run: dotnet build --no-restore
-
-      - name: Test
-        working-directory: TailwindTraders.Website/Source/Tailwind.Traders.Web
-        run: dotnet test --no-build --verbosity normal
+        run: |
+          dotnet build --configuration Release
+          dotnet test --configuration Release
+          dotnet publish -c Release -o publish
